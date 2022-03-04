@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>4択クイズ</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="quiz.js"></script>
+  </head>
+  <body>
+  <head>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <!--about-->
+  <div class="about">
+    <h3>＜江戸川乱歩作品＞</h3>
+    <h4>小説・怪人二十面相あらすじ穴埋めクイズ</h4>
+    <hr>
+    <p>
+     ()に入る答えを問題の下から選んでね!
+    </p>
+    </div>
+
+  <body onload="set();">
+    <!--白い枠の領域-->
+    <div class="white-box">
+
+      <!--問題番号を表示する領域-->
+      <div class="order" id="order"></div>
+
+      <!--問題を表示する領域-->
+      <div class="question" id="question"></div>
+
+      <!--選択肢を表示する領域-->
+      <div class="answer">
+        <button type="button" id="answer1" onClick="judge(1);"></button>
+        <button type="button" id="answer2" onClick="judge(2);"></button>
+        <button type="button" id="answer3" onClick="judge(3);"></button>
+        <button type="button" id="answer4" onClick="judge(4);"></button>
+      </div>
+
+      <!--正誤判定を表示する領域-->
+      <div class="result" id="result"></div>
+    </div>
+  </body>
+</html>
+var quiz=[
+    ["実業家の大立者の羽柴壮太郎の邸宅には喜びと恐怖がやってきました。喜びは、十年以前に家出をした（1）・壮一が帰ってくることです。","次男","長男","次女","長女",2],
+    ["一方、恐怖は最近世間を騒がしている｢(2）｣からロマノフ王家の宝石を狙った予告状が届いたことでした。","怪獣二十面相","怪人三十面相","怪人二十面相","怪奇面相",3],
+    ["そして宝石は奪われてしまいました。さらには、次男・（3）が誘拐されてしまいました。","壮ニ","壮一","一郎","次郎",1],
+    ["そこで、名探偵・明智小五郎に依頼したのですが、出張中の明智の補佐をしている小林（4）が依頼を受けました。","太郎","春也","谷井","芳雄",4],
+];
+var counter = 0;
+var score = 0;
+var end = false;
+
+function set(){
+  var order = document.getElementById("order");
+  var question = document.getElementById("question");
+  order.innerHTML = "【第" + (counter + 1) + "問】";
+  question.innerHTML = quiz[counter][0];
+
+  for(var i = 1; i < 5; i ++){
+    var answer = document.getElementById("answer" + i);
+    answer.innerHTML = quiz[counter][i];
+  }
+}
+
+function judge(num){
+  if(end){
+    return;
+  }
+  var result = document.getElementById("result");
+  var answer = quiz[counter][5];
+  if(answer == num){
+    result.innerHTML = "正解！";
+    score += 1;
+  }
+  else{
+    result.innerHTML = "不正解...";
+  }
+  if(counter == quiz.length - 1){
+    result.innerHTML += quiz.length + "問中" + score + "問正解！";
+    end = true;
+  }
+  else{
+    counter += 1;
+    set();
+  }
+}
+
+
+
+
+
+body{
+  background-color:#7CB0C6;
+  color:#3A3A3A;
+  font-size:28px;
+  padding: 45px;
+  text-align:center;
+}
+.white-box{
+ background:#FFFFFF;
+ border-radius:25px;
+ display:inline-block;
+ width:50%;
+}
+div{
+  margin:23px;
+}
+button{
+  background-color: #FFFFFF;
+  border: solid 2px #3A3A3A;
+  color: #3A3A3A;
+  font-size: 20px;
+  margin-bottom: 10px;
+  padding: 25px;
+  width: 100%;
+}
+button:hover{
+  background: #5783DB;
+  color: #FFFFFF;
+}
+
